@@ -1,0 +1,63 @@
+{% load static %}
+
+<header style="background-color: #003366; color: #fff; padding: 0 30px; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); font-size: 20px; height: 15vh; z-index: 9999;">
+    
+    <a href="{% url 'home' %}" style="display: inline-block; text-decoration: none; background-color: #007bff; color: white; padding: 15px 30px; border-radius: 8px; font-size: 22px; font-weight: bold; text-align: center; transition: background-color 0.3s;" onmouseover="this.style.backgroundColor='#0056b3';" onmouseout="this.style.backgroundColor='#007bff';">
+        Attendance System
+    </a>
+    
+    <div style="position: relative;">
+        {% if user.image and user.image.image %}
+            <img src="{{ user.image.image.url }}" 
+                alt="Profile Image" 
+                style="width: 40px; height: 40px; border-radius: 50%; object-fit: cover; margin-right: 10px; border: 2px solid #ddd;">
+        {% else %}
+            <img src="{% static 'images/default_user.jpeg' %}" 
+                alt="Profile Image" 
+                style="width: 40px; height: 40px; border-radius: 50%; object-fit: cover; margin-right: 10px; border: 2px solid #ddd;">
+        {% endif %}
+
+        <span style="cursor: pointer; font-size: 18px; position: relative;">{{ request.user.first_name }} {{ request.user.last_name }} ▼</span>
+        <div style="display: none; position: absolute; right: 0; top: 30px; background-color: #fff; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); border-radius: 8px; overflow: hidden; z-index: 10; transition: opacity 0.3s ease, transform 0.3s ease;">
+            <a href="{% url 'edit_profile' %}" style="display: flex; align-items: center; padding: 15px 20px; text-decoration: none; color: #333; font-size: 16px; background: linear-gradient(to right, #f8f9fa, #e9ecef); border-bottom: 1px solid #ddd; transition: background-color 0.3s, transform 0.2s;">
+                <span style="margin-right: 10px; font-size: 18px; color: #007bff;">&#128100;</span> <!-- Icon -->
+                Edit Profile
+            </a>
+            <a href="{% url 'user_logout' %}" style="display: flex; align-items: center; padding: 15px 20px; text-decoration: none; color: #333; font-size: 16px; background: linear-gradient(to right, #f8f9fa, #e9ecef); border-radius: 0 0 8px 8px; transition: background-color 0.3s, transform 0.2s;">
+                <span style="margin-right: 10px; font-size: 18px; color: #dc3545;">&#128682;</span> <!-- Icon -->
+                Logout
+            </a>
+            
+        </div>
+    </div>
+</header>
+
+<script>
+    // Toggle dropdown menu for Username
+    const usernameElement = document.querySelector('header div > span');
+    const dropdownMenu = document.querySelector('header div > div');
+
+    usernameElement.addEventListener('mouseover', () => {
+        dropdownMenu.style.display = 'block';
+        dropdownMenu.style.opacity = '1';
+        dropdownMenu.style.transform = 'translateY(0)';
+    });
+
+    usernameElement.addEventListener('mouseout', () => {
+        dropdownMenu.style.display = 'none';
+        dropdownMenu.style.opacity = '0';
+        dropdownMenu.style.transform = 'translateY(-10px)';
+    });
+
+    dropdownMenu.addEventListener('mouseover', () => {
+        dropdownMenu.style.display = 'block';
+        dropdownMenu.style.opacity = '1';
+        dropdownMenu.style.transform = 'translateY(0)';
+    });
+
+    dropdownMenu.addEventListener('mouseout', () => {
+        dropdownMenu.style.display = 'none';
+        dropdownMenu.style.opacity = '0';
+        dropdownMenu.style.transform = 'translateY(-10px)';
+    });
+</script>

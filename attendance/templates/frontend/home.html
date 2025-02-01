@@ -1,0 +1,20 @@
+{% extends 'frontend/includes/base.html' %}
+{% load static %}
+
+{% block content %}
+<main style="display: flex; flex-direction: column; align-items: center; justify-content: center; height: calc(100vh - 90px); text-align: center;">
+    {% if messages %}
+        <div style="z-index: 1000;">
+            {% for message in messages %}
+                <div style="background: {% if message.tags == 'error' %}#ff4d4d{% else %}#4caf50{% endif %}; color: white; padding: 15px 20px; border-radius: 5px; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); font-size: 14px; margin-bottom: 10px; position: relative;">
+                    <span onclick="this.parentElement.style.display='none';" style="position: absolute; top: 5px; right: 10px; font-size: 16px; font-weight: bold; cursor: pointer; color: white;">&times;</span>
+                    {{ message }}
+                </div>
+            {% endfor %}
+        </div>
+    {% endif %}
+    <a href="{% url 'mark_attendance' %}" style="display: block; margin: 20px; padding: 20px 40px; background-color: #007bff; color: #fff; text-decoration: none; border-radius: 8px; font-size: 22px; width: 250px; text-align: center; box-shadow: 0 6px 8px rgba(0, 0, 0, 0.1); transition: transform 0.3s ease, background-color 0.3s ease;">Mark Attendance</a>
+    <a href="{% url 'leave_request' %}" style="display: block; margin: 20px; padding: 20px 40px; background-color: #28a745; color: #fff; text-decoration: none; border-radius: 8px; font-size: 22px; width: 250px; text-align: center; box-shadow: 0 6px 8px rgba(0, 0, 0, 0.1); transition: transform 0.3s ease, background-color 0.3s ease;">Ask for a Leave</a>
+    <a href="{% url 'attendance_report' %}" style="display: block; margin: 20px; padding: 20px 40px; background-color: #ffc107; color: #fff; text-decoration: none; border-radius: 8px; font-size: 22px; width: 250px; text-align: center; box-shadow: 0 6px 8px rgba(0, 0, 0, 0.1); transition: transform 0.3s ease, background-color 0.3s ease;">View Report</a>
+</main>
+{% endblock %}

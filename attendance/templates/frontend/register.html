@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Responsive Registration Page</title>
+</head>
+<body style="margin: 0; padding: 0; box-sizing: border-box; font-family: Arial, sans-serif; display: flex; justify-content: center; align-items: center; height: 100vh; background-color: #f3f4f6;">
+    {% if messages %}
+        <div style="position: absolute; top: 20px; left: 20px; z-index: 1000;">
+            {% for message in messages %}
+                <div style="background: {% if message.tags == 'error' %}#ff4d4d{% else %}#4caf50{% endif %}; color: white; padding: 15px 20px; border-radius: 5px; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); font-size: 14px; margin-bottom: 10px; position: relative;">
+                    <span onclick="this.parentElement.style.display='none';" style="position: absolute; top: 5px; right: 10px; font-size: 16px; font-weight: bold; cursor: pointer; color: white;">&times;</span>
+                    {{ message }}
+                </div>
+            {% endfor %}
+        </div>
+    {% endif %}
+    <div style="background: #fff; padding: 20px 30px; border-radius: 8px; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); width: 100%; max-width: 400px;">
+        <h1 style="font-size: 24px; margin-bottom: 20px; text-align: center; color: #333;">Register</h1>
+        <form method="post">
+            {% csrf_token %}
+            <div style="margin-bottom: 15px;">
+                <label for="first-name" style="display: block; margin-bottom: 5px; font-size: 14px; color: #555;">First Name</label>
+                <input type="text" id="first_name" name="first_name" value="{{ form.first_name.value|default_if_none:'' }}" placeholder="Enter your first name" required style="width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 4px; font-size: 16px;">
+            </div>
+            <div style="margin-bottom: 15px;">
+                <label for="last-name" style="display: block; margin-bottom: 5px; font-size: 14px; color: #555;">Last Name</label>
+                <input type="text" id="last-name" name="last_name" value="{{ form.last_name.value|default_if_none:'' }}" placeholder="Enter your last name" required style="width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 4px; font-size: 16px;">
+            </div>
+            <div style="margin-bottom: 15px;">
+                <label for="username" style="display: block; margin-bottom: 5px; font-size: 14px; color: #555;">Username</label>
+                <input type="text" id="username" name="username" value="{{ form.username.value|default_if_none:'' }}" placeholder="Enter your username" required style="width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 4px; font-size: 16px;">
+            </div>
+            <div style="margin-bottom: 15px;">
+                <label for="email" style="display: block; margin-bottom: 5px; font-size: 14px; color: #555;">Email</label>
+                <input type="email" id="email" name="email" value="{{ form.email.value|default_if_none:'' }}" placeholder="Enter your email" required style="width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 4px; font-size: 16px;">
+                {% if form.email.errors %}
+                    <div style="color: red;">
+                        {{ form.email.errors }}
+                    </div>
+                {% endif %}
+            </div>
+            <div style="margin-bottom: 15px;">
+                <label for="password" style="display: block; margin-bottom: 5px; font-size: 14px; color: #555;">Password</label>
+                <input type="password" id="password" name="password1" value="{{ form.password1.value|default_if_none:'' }}" placeholder="Enter your password" required style="width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 4px; font-size: 16px;">
+                {% if form.password1.errors %}
+                    <div style="color: red;">
+                        {{ form.password1.errors }}
+                    </div>
+                {% endif %}
+            </div>
+            <div style="margin-bottom: 15px;">
+                <label for="confirm-password" style="display: block; margin-bottom: 5px; font-size: 14px; color: #555;">Confirm Password</label>
+                <input type="password" id="confirm-password" name="password2" value="{{ form.password2.value|default_if_none:'' }}" placeholder="Confirm your password" required style="width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 4px; font-size: 16px;">
+                {% if form.password2.errors %}
+                    <div style="color: red;">
+                        {{ form.password2.errors }}
+                    </div>
+                {% endif %}
+            </div>
+            {% if form.errors %}
+                <div style="color: red;">
+                    {{ form.errors }}
+                </div>
+            {% endif %}
+            <button type="submit" style="width: 100%; padding: 10px; background-color: #007bff; border: none; border-radius: 4px; color: #fff; font-size: 16px; cursor: pointer; transition: background-color 0.3s ease;">Register</button>
+            <div style="margin-top: 10px; text-align: center;">
+                <a href="{% url 'user_login' %}" style="color: #007bff; text-decoration: none; font-size: 14px;">Already have an account? Login</a>
+            </div>
+        </form>
+    </div>
+</body>
+</html>

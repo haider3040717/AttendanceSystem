@@ -1,0 +1,25 @@
+{% extends 'frontend/includes/base.html' %}
+
+{% block content %}
+
+<div style="max-width: 600px; margin: 0 auto; padding: 20px; background-color: #f9f9f9; border: 1px solid #ddd; border-radius: 8px;">
+    <h2 style="text-align: center;">Edit Profile</h2>
+    <form method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+        <fieldset style="border: none; padding: 0; margin-bottom: 20px;">
+            <legend style="font-weight: bold; margin-bottom: 10px;">User Details</legend>
+            <div style="margin-bottom: 15px;">
+                {{ profile_form.as_p }}
+            </div>
+        </fieldset>
+        <fieldset style="border: none; padding: 0; margin-bottom: 20px;">
+            <legend style="font-weight: bold; margin-bottom: 10px;">Profile Image</legend>
+            <div style="margin-bottom: 15px;">
+                {{ image_form.as_p }}
+            </div>
+        </fieldset>
+        <button type="submit" style="background-color: #007bff; color: white; border: none; padding: 10px 20px; border-radius: 4px; cursor: pointer;">Save Changes</button>
+    </form>
+</div>
+
+{% endblock %}
